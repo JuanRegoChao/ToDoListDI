@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:selectors="clr-namespace:ToDoList.Selectors"
+             x:Class="ToDoList.MVMV.Views.ListView"
+             Title="Tasks"
+             x:Name="ListViewPage">
+
+    <ContentPage.Resources>
+        <selectors:TaskListSelector x:Key="TaskStyleSelector" />
+    </ContentPage.Resources>
+
+    <Grid>
+        <!-- Imagen de fondo -->
+        <Image Style="{StaticResource BackgroundImage}"/>
+
+        <!-- Contenido principal -->
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}"
+                     Margin="0,0,0,35">
+            <CollectionView ItemsSource="{Binding Tasks}"
+                            ItemTemplate="{StaticResource TaskStyleSelector}"
+                            RemainingItemsThreshold="2"
+                            RemainingItemsThresholdReachedCommand="{Binding RemaindingCommand}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedTask}">
+            </CollectionView>
+        </RefreshView>
+
+        <Button ImageSource="completed_task.png"
+                BackgroundColor="MediumPurple"
+                BorderWidth="1"
+                BorderColor="DarkViolet"
+                CornerRadius="30"
+                WidthRequest="60"
+                HeightRequest="60"
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                Margin="8"
+                Padding="10,0,2,2"
+                Command="{Binding PushToCompletedListView}" />
+
+        <!-- Boton flotante para agregar tareas -->
+        <Button ImageSource="add_task.png"
+                BackgroundColor="MediumPurple"
+                BorderWidth="1"
+                BorderColor="DarkViolet"
+                CornerRadius="30"
+                WidthRequest="60"
+                HeightRequest="60"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                Margin="8"
+                Padding="10,5,5,2"
+                Command="{Binding PushToCreateTaskView}" />
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Estilo reutilizable para los estados visuales al seleccionar -->
+    <Style x:Key="SelectVisualStyle" TargetType="Grid">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="Transparent" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#6432a0e6" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="TaskButtonStyle" TargetType="Button">
+        <Setter Property="Scale" Value="3" />
+        <Setter Property="Grid.RowSpan" Value="2" />
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="Padding" Value="0, 0, 15, 0" />
+        <Setter Property="ImageSource" Value="{Binding CompletedImage}" />
+        <Setter Property="CommandParameter" Value="{Binding .}" />
+        
+    </Style>
+
+    <!-- Imagen de fondo -->
+    <Style  x:Key="BackgroundImage" TargetType="Image">
+        <Setter Property="Source" Value="todolist_background.png" />
+        <Setter Property="Aspect" Value="AspectFill" />
+        <Setter Property="VerticalOptions" Value="FillAndExpand" />
+        <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+    </Style>
+
+</ResourceDictionary>

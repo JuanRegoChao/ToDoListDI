@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <DataTemplate x:Key="TaskTemplate" >
+        <Grid Style="{StaticResource SelectVisualStyle}">
+            <Grid HeightRequest="100" ColumnDefinitions="9*, 1*" RowDefinitions="*, *" Margin="15, 5, 15, 5">
+
+                <!-- Fondo con gradiente -->
+                <Frame Grid.ColumnSpan="3" Grid.RowSpan="2" BorderColor="Aquamarine" CornerRadius="25">
+                    <Frame.Background>
+                        <LinearGradientBrush EndPoint="1, 0">
+                            <GradientStop Offset="0" Color="LightSlateGray" />
+                            <GradientStop Offset="0.25" Color="LightGray" />
+                            <GradientStop Offset="0.65" Color="WhiteSmoke" />
+                            <GradientStop Offset="1" Color="Aquamarine" />
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                </Frame>
+
+                <Label Text="{Binding Name}" Padding="25, 5, 0, 0" VerticalOptions="Center" FontSize="Large" />
+
+                <Label Text="{Binding ShortDescription}" Padding="0,0,30,20" VerticalOptions="Center" HorizontalOptions="Center"
+                       FontSize="Medium" TextColor="{Binding UrgencyTextColor}" Grid.Row="1">
+                    <Label.Shadow>
+                        <Shadow Brush="Aquamarine" 
+                                Offset="0,0" 
+                                Opacity="0.5" 
+                                Radius="25" />
+                    </Label.Shadow>
+                </Label>
+
+
+                <Button Style="{StaticResource TaskButtonStyle}"
+                        Command="{Binding BindingContext.CompleteTaskCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+
+            </Grid>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="UrgencyTaskTemplate">
+        <Grid Style="{StaticResource SelectVisualStyle}">
+            <Grid HeightRequest="150" ColumnDefinitions="8*, 2*" RowDefinitions="*, *" Margin="10, 5, 10, 5">
+                <!-- Borde expandido -->
+                <BoxView Grid.ColumnSpan="3" 
+                         Grid.RowSpan="2"
+                         BackgroundColor="DarkRed"
+                         CornerRadius="10"
+                         Margin="0, 0, 0, 0" />
+
+                <!-- Fondo con gradiente ae95bb ca91e6-->
+                <Frame Margin="5" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderColor="{StaticResource DarkLunarGray}" CornerRadius="10" Padding="0">
+                    <Frame.Background>
+                        <LinearGradientBrush EndPoint="1, 0">
+                            <GradientStop Offset="0" Color="LightSlateGray" />
+                            <GradientStop Offset="0.55" Color="LightGray" />
+                            <GradientStop Offset="1" Color="{StaticResource MediumLunarGray}" />
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                </Frame>
+
+                <!-- Etiquetas de Nombre y Urgencia -->
+                <Label Text="{Binding Name}" TextColor="{StaticResource WarningYellow}"
+                       Padding="25, 0, 0, 10" VerticalOptions="Center" FontSize="Large" />
+                <Label Text="{Binding ShortDescription}" Padding="0, 0, 55, 30" VerticalOptions="Center" HorizontalOptions="Center" FontSize="Medium"
+                       Grid.Row="1" FontAttributes="Bold" TextColor="{Binding UrgencyTextColor}" >
+                    <Label.Shadow>
+                        <Shadow Brush="Red" 
+                                Offset="0,0" 
+                                Opacity="0.5" 
+                                Radius="15" />
+                    </Label.Shadow>
+                </Label>
+
+                <!-- Boton para completar tarea -->
+                <Button Style="{StaticResource TaskButtonStyle}"
+                        Command="{Binding BindingContext.CompleteTaskCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                        Scale="1.75" Padding="0, 0, 25, 0" />
+
+            </Grid>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CompletedTaskTemplate">
+        <Grid Style="{StaticResource SelectVisualStyle}">
+            <SwipeView>
+            <SwipeView.RightItems>
+                <SwipeItems>
+                    <SwipeItem BackgroundColor="Transparent"
+                               IconImageSource="trashcan.png"
+                               Command="{Binding BindingContext.DeleteTaskCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                               CommandParameter="{Binding .}" />
+                </SwipeItems>
+            </SwipeView.RightItems>
+                <Grid HeightRequest="100" ColumnDefinitions="9*, 1*" RowDefinitions="*, *" Margin="15, 5, 15, 5">
+
+                    <Frame Grid.ColumnSpan="3" Grid.RowSpan="2" BorderColor="Black" CornerRadius="25">
+                        <Frame.Background>
+                            <LinearGradientBrush EndPoint="1, 0">
+                                <GradientStop Offset="0" Color="{StaticResource DarkLunarGray}" />
+                                <GradientStop Offset="0.4" Color="DarkGray" />
+                                <GradientStop Offset="0.75" Color="DarkGray" />
+                                <GradientStop Offset="1" Color="{StaticResource DarkLunarGray}" />
+                            </LinearGradientBrush>
+                        </Frame.Background>
+                    </Frame>
+
+                    <Label Text="{Binding Name}" Padding="50, 0, 0, 0" VerticalOptions="Center" FontSize="Large" >
+                        <Label.Shadow>
+                            <Shadow Brush="DarkSlateGray" 
+                                Offset="0,0" 
+                                Opacity="1" 
+                                Radius="25" />
+                        </Label.Shadow>
+                    </Label>
+
+                    <!-- Boton para restaurar tarea -->
+                    <Button Style="{StaticResource TaskButtonStyle}"
+                            ImageSource="restore_task.png"
+                            Command="{Binding BindingContext.RestoreTaskCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                </Grid>
+            </SwipeView>
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>
+<!-- ImageSource="{StaticResource avatar_placeholder}"  -->
